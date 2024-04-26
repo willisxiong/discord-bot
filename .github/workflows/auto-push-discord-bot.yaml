@@ -1,0 +1,41 @@
+name: auto-update-discord-bot
+on: push
+env: 
+  AWS_REGION: ap-east-1
+jobs:
+  deploy:
+   runs-on: ubuntu-latest
+   steps:
+     - name: checkout
+       uses: actions/checkout@v3
+
+     - name: configure aws credentials
+       uses: aws-actions/configure-aws-credentials@v1
+       with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: ${{ env.AWS_REGION }}
+
+     - name: setup-terraform
+       uses: hashcorp/setup-terraform@v3
+       with:
+         terraform_version: "1.8.2"
+
+     - name: login to ecr
+       id: login-ecr
+       uses: aws-actions/amazon-ecr-login@v2
+
+     - name: Build, tag and push image to ECR
+       id: build-image
+       run: 
+        docker build . -t disocrd-bot
+        docker tag discord-bot-hermes:latest 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
+        docker push 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
+
+     - name: initiate terraform
+       run: terraform init
+
+     - name: plan and execute terraform file
+       run: 
+        terraform plan
+        terraform apply --auto-approve
