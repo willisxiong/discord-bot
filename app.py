@@ -1,8 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 import discord
-import random
+import os
 from discord.ext import commands
+
+discord_token = os.environ['DISCORD_TOKEN']
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -173,8 +175,7 @@ def chunks(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i:i + n]
 
-
-bot.run('MTIyNjkyOTQ2MjYyOTYzNDEzMg.G-hJ5-.6HWaVFVBCPlN3HhL1b5qbprnjFto2zirWm6j04')
+bot.run(discord_token)
 
 
 
