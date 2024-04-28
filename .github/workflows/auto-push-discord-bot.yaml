@@ -10,6 +10,7 @@ jobs:
        uses: actions/checkout@v4
        with:
          sparse-checkout: .
+         path: ${{ github.workspace }}
 
      - name: configure aws credentials
        uses: aws-actions/configure-aws-credentials@v1
@@ -30,7 +31,7 @@ jobs:
      - name: Build, tag and push image to ECR
        id: build-image
        run: 
-        docker build -f /github/workspace/Dockerfile . -t disocrd-bot
+        docker build ${{ steps.checkout.path }} . -t disocrd-bot
         docker tag discord-bot-hermes:latest 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
         docker push 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
 
