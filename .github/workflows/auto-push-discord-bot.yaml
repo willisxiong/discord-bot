@@ -30,8 +30,9 @@ jobs:
 
      - name: Build, tag and push image to ECR
        id: build-image
+       working-directory: ${{ steps.checkout.path }}
        run: 
-        docker build ${{ steps.checkout.path }} . -t disocrd-bot
+        docker build . -t disocrd-bot
         docker tag discord-bot-hermes:latest 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
         docker push 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
 
