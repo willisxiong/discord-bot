@@ -34,7 +34,7 @@ jobs:
        working-directory: ${{ github.workspace }}
        run: |
         docker buildx build . -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
      - name: initiate terraform
        run: terraform init
