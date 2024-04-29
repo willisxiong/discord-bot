@@ -27,10 +27,13 @@ jobs:
 
      - name: Build, tag and push image to ECR
        id: build-image
+       env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: discord-bot-hermes
+        IMAGE_TAG: latest
        working-directory: ${{ github.workspace }}
        run: |
-        docker buildx build . -t disocrd-bot
-        docker tag discord-bot-hermes:latest 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
+        docker buildx build . -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push 952800808852.dkr.ecr.ap-east-1.amazonaws.com/discord-bot-hermes:latest
 
      - name: initiate terraform
