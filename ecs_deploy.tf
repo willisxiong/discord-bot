@@ -7,7 +7,7 @@ data "aws_ecs_cluster" "ecs-discord-bot-cluster" {
 }
 
 data "aws_ecs_task_definition" "task-discord-bot" {
-  task_definition = "task-for-discordbot:2"
+  task_definition = "task-for-discordbot:3"
 }
 
 data "aws_subnet" "public-1" {

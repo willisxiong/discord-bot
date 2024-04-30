@@ -5,14 +5,13 @@ import os
 from discord.ext import commands
 
 discord_token = os.environ['DISCORD_TOKEN']
+proxy_username = os.environ['PROXY_USR']
+proxy_password = os.environ['PROXY_PWD']
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
-
-proxy_username = 'geonode_u11gySF6E0'
-proxy_password = '2c51f9a3-438d-4982-92c7-d694701bf8ec'
 
 proxy = {
     'http':f'http://{proxy_username}:{proxy_password}@premium-residential.geonode.com:9000', 
