@@ -29,7 +29,7 @@ data "aws_security_group" "web-server" {
 }
 
 resource "aws_ecs_service" "discord-bot" {
-  name = "discord_bot"
+  name = "discord_bot_1"
   cluster = data.aws_ecs_cluster.ecs-discord-bot-cluster.id
   task_definition = data.aws_ecs_task_definition.task-discord-bot.arn
   desired_count = 1
